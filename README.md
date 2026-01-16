@@ -174,7 +174,19 @@ Protected дает доступ к полю классам-наследника�
 
 ================================================================================================
 
+<img width="546" height="650" alt="image" src="https://github.com/user-attachments/assets/2d20520d-329e-4d55-ab73-d3b4912c4eee" />
 
+<img width="526" height="585" alt="image" src="https://github.com/user-attachments/assets/91a26975-4632-4489-8e62-b6c01779ec5e" />
 
+<img width="796" height="603" alt="image" src="https://github.com/user-attachments/assets/5f5bc05d-d38f-4b6f-8a67-05f8c9e18556" />
 
+<img width="402" height="313" alt="image" src="https://github.com/user-attachments/assets/2ae8c33e-ef90-4e16-9c88-ee19fd545b76" />
+
+<img width="562" height="747" alt="image" src="https://github.com/user-attachments/assets/6695f95a-5c72-4076-9c64-a813f37246f3" />
+
+<img width="517" height="660" alt="image" src="https://github.com/user-attachments/assets/dafe2356-bb0e-4266-85d5-0572c1ef439f" />
+
+<img width="525" height="679" alt="image" src="https://github.com/user-attachments/assets/f94ff541-0f58-45fc-b4ee-af4f5ab27eae" />
+
+<img width="503" height="604" alt="image" src="https://github.com/user-attachments/assets/565f204e-0b5e-48e2-8a68-d0d4f58fd08c" />
 
