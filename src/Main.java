@@ -2,249 +2,173 @@ import java.util.Scanner;
 import zad1.House;
 import zad2.Gun;
 import zad3.MachineGun;
+import zad5.Point;
 
 public class Main {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        // Выполнение Задания 1
         runTask1(scanner);
-
         System.out.println("\n---------------------------------------------");
 
-        // Выполнение Задания 2
         runTask2(scanner);
-
         System.out.println("\n---------------------------------------------");
 
-        // Выполнение Задания 3
         runTask3(scanner);
+        System.out.println("\n---------------------------------------------");
+
+        runTask4(scanner);
+        System.out.println("\n---------------------------------------------");
+
+        runTask5(scanner);
+        System.out.println("\n---------------------------------------------");
+
+        runTask6(scanner);
 
         System.out.println("\nВсе задания выполнены.");
         scanner.close();
     }
 
-    // ================= МЕТОДЫ ЗАДАНИЯ 1 (Дом) =================
+    // ... (методы runTask1, runTask2, runTask3, runTask4, runTask5 остаются без изменений) ...
+
+    // ================= МЕТОДЫ ЗАДАНИЯ 1 =================
     private static void runTask1(Scanner scanner) {
         System.out.println("============== ЗАДАНИЕ 1 (Дом) ==============");
-        System.out.println("Создание дома. Введите данные с клавиатуры.");
-        System.out.println("Введите количество этажей (попробуйте <= 0 для проверки ошибки):");
-
-        // Цикл ввода, пока не будет создан корректный объект
+        System.out.println("Создание дома. Введите количество этажей:");
         while (true) {
             int floors = getValidIntInput(scanner);
             try {
-                // Попытка создания объекта
                 House userHouse = new House(floors);
-                System.out.println("Успех! Создан объект: " + userHouse);
-                break; // Выходим из цикла, так как дом создан
-            } catch (IllegalArgumentException e) {
-                System.out.println("Ошибка валидации: " + e.getMessage());
-                System.out.println("Попробуйте ввести значение еще раз.");
-            }
-        }
-    }
-
-    // ================= МЕТОДЫ ЗАДАНИЯ 2 (Пистолет) =================
-    private static void runTask2(Scanner scanner) {
-        System.out.println("============== ЗАДАНИЕ 2 (Пистолет) ==============");
-        System.out.println("Создание пистолета.");
-        System.out.println("Введите максимальную вместимость магазина:");
-
-        Gun userGun = null;
-
-        // Цикл создания пистолета
-        while (true) {
-            int max = getValidIntInput(scanner);
-            try {
-                userGun = new Gun(max);
-                System.out.println("Пистолет создан: " + userGun);
+                System.out.println("Успех! Создан: " + userHouse);
                 break;
             } catch (IllegalArgumentException e) {
-                System.out.println("Ошибка: " + e.getMessage() + " Попробуйте снова.");
-            }
-        }
-
-        // Интерактивное меню управления
-        boolean active = true;
-        while (active) {
-            System.out.println("\nМеню пистолета:");
-            System.out.println("1. Стрелять (Бах! / Клац!)");
-            System.out.println("2. Зарядить патроны");
-            System.out.println("3. Разрядить (вынуть все)");
-            System.out.println("4. Информация о пистолете");
-            System.out.println("0. Завершить задание 2");
-            System.out.print("Ваш выбор > ");
-
-            String choice = scanner.nextLine();
-
-            switch (choice) {
-                case "1":
-                    userGun.shoot();
-                    break;
-
-                case "2":
-                    System.out.println("Сколько патронов зарядить?");
-                    // Внутренний цикл для ввода количества патронов
-                    while (true) {
-                        int amount = getValidIntInput(scanner);
-                        try {
-                            int excess = userGun.reload(amount);
-                            System.out.println("Заряжено. Лишних патронов вернулось: " + excess);
-                            break;
-                        } catch (IllegalArgumentException e) {
-                            System.out.println("Ошибка: " + e.getMessage() + " Попробуйте снова.");
-                        }
-                    }
-                    break;
-
-                case "3":
-                    int removed = userGun.discharge();
-                    System.out.println("Пистолет разряжен. Извлечено патронов: " + removed);
-                    break;
-
-                case "4":
-                    System.out.println("Статус: " + userGun);
-                    System.out.println("Заряжен? " + (userGun.isLoaded() ? "Да" : "Нет"));
-                    System.out.println("Патронов внутри: " + userGun.getAmmo());
-                    System.out.println("Вместимость: " + userGun.getMaxAmmo());
-                    break;
-
-                case "0":
-                    active = false;
-                    break;
-
-                default:
-                    System.out.println("Неверная команда.");
+                System.out.println("Ошибка: " + e.getMessage());
+                System.out.print("Попробуйте снова: ");
             }
         }
     }
 
-    // ================= МЕТОДЫ ЗАДАНИЯ 3 (Автомат) =================
+    // ================= МЕТОДЫ ЗАДАНИЯ 2 =================
+    private static void runTask2(Scanner scanner) {
+        System.out.println("============== ЗАДАНИЕ 2 (Пистолет) ==============");
+        System.out.println("Введите вместимость:");
+        Gun userGun = null;
+        while (true) {
+            try {
+                userGun = new Gun(getValidIntInput(scanner));
+                System.out.println("Создан: " + userGun);
+                break;
+            } catch (IllegalArgumentException e) {
+                System.out.println("Ошибка: " + e.getMessage());
+                System.out.print("Попробуйте снова: ");
+            }
+        }
+        // Краткое демо
+        System.out.println("Демонстрация: Заряжаем 5, Стреляем.");
+        userGun.reload(5);
+        userGun.shoot();
+        System.out.println(userGun);
+    }
+
+    // ================= МЕТОДЫ ЗАДАНИЯ 3 =================
     private static void runTask3(Scanner scanner) {
         System.out.println("============== ЗАДАНИЕ 3 (Автомат) ==============");
-        System.out.println("Выберите способ создания автомата:");
-        System.out.println("1. По умолчанию (30 патронов, 30 выстр/сек)");
-        System.out.println("2. Только вместимость (скорострельность = вместимость / 2)");
-        System.out.println("3. Вместимость и скорострельность вручную");
+        System.out.println("Создаем автомат по умолчанию.");
+        MachineGun mg = new MachineGun();
+        System.out.println("Создан: " + mg);
+    }
 
-        MachineGun machineGun = null;
-
-        // Цикл создания автомата
-        while (machineGun == null) {
-            System.out.print("Ваш выбор способа > ");
-            String mode = scanner.nextLine();
-
+    // ================= МЕТОДЫ ЗАДАНИЯ 4 =================
+    private static void runTask4(Scanner scanner) {
+        System.out.println("============== ЗАДАНИЕ 4 (Abstract Weapon) ==============");
+        System.out.println("Введите вместимость:");
+        while(true) {
             try {
-                switch (mode) {
-                    case "1":
-                        machineGun = new MachineGun();
-                        break;
+                zad4.Gun g = new zad4.Gun(getValidIntInput(scanner));
+                System.out.println("Создан: " + g);
+                break;
+            } catch(Exception e) {
+                System.out.println("Ошибка: " + e.getMessage());
+            }
+        }
+    }
 
-                    case "2":
-                        System.out.println("Введите вместимость:");
-                        int caps = getValidIntInput(scanner);
-                        machineGun = new MachineGun(caps);
-                        break;
+    // ================= МЕТОДЫ ЗАДАНИЯ 5 =================
+    private static void runTask5(Scanner scanner) {
+        System.out.println("============== ЗАДАНИЕ 5 (Точки) ==============");
+        System.out.println("Введите X и Y для точки 1:");
+        Point p1 = new Point(getValidIntInput(scanner), getValidIntInput(scanner));
+        System.out.println("Введите X и Y для точки 2:");
+        Point p2 = new Point(getValidIntInput(scanner), getValidIntInput(scanner));
+        System.out.println("Точки равны? " + p1.equals(p2));
+    }
 
-                    case "3":
-                        System.out.println("Введите вместимость:");
-                        int c = getValidIntInput(scanner);
-                        System.out.println("Введите скорострельность:");
-                        int r = getValidIntInput(scanner);
-                        machineGun = new MachineGun(c, r);
-                        break;
+    // ================= МЕТОДЫ ЗАДАНИЯ 6 =================
+    private static void runTask6(Scanner scanner) {
+        System.out.println("============== ЗАДАНИЕ 6 (Protected Ammo) ==============");
+        System.out.println("В этом задании поле ammo имеет модификатор protected.");
+        System.out.println("Это позволило упростить метод discharge() в классе Gun.");
 
-                    default:
-                        System.out.println("Неверный выбор. Введите 1, 2 или 3.");
-                }
-
-                if (machineGun != null) {
-                    System.out.println("Автомат успешно создан: " + machineGun);
-                }
-
-            } catch (IllegalArgumentException e) {
-                // Перехват логических ошибок (например, <= 0 патронов)
-                System.out.println("Ошибка создания: " + e.getMessage());
-                System.out.println("Попробуйте снова.");
-                machineGun = null; // Сброс для повтора цикла
+        System.out.println("Введите вместимость пистолета:");
+        zad6.Gun gun = null;
+        while(true) {
+            try {
+                gun = new zad6.Gun(getValidIntInput(scanner));
+                System.out.println("Создан: " + gun);
+                break;
+            } catch(Exception e) {
+                System.out.println("Ошибка: " + e.getMessage());
             }
         }
 
-        // Интерактивное меню автомата
         boolean active = true;
         while (active) {
-            System.out.println("\nМеню автомата:");
-            System.out.println("1. Одиночный вызов 'Стрелять' (серия = скорострельности)");
-            System.out.println("2. Стрелять N секунд");
-            System.out.println("3. Зарядить");
-            System.out.println("4. Разрядить");
-            System.out.println("5. Инфо");
-            System.out.println("0. Завершить задание 3");
+            System.out.println("\nМеню (Protected Gun):");
+            System.out.println("1. Стрелять (прямой доступ к ammo)");
+            System.out.println("2. Зарядить");
+            System.out.println("3. Разрядить (упрощенный метод)");
+            System.out.println("4. Инфо");
+            System.out.println("0. Завершить задание 6");
             System.out.print("Ваш выбор > ");
 
-            String choice = scanner.nextLine();
-
-            switch (choice) {
+            String c = scanner.nextLine();
+            switch (c) {
                 case "1":
-                    machineGun.shoot();
+                    gun.shoot();
                     break;
-
                 case "2":
-                    System.out.println("Сколько секунд стрелять?");
-                    while (true) {
-                        int sec = getValidIntInput(scanner);
-                        try {
-                            machineGun.shoot(sec);
-                            break;
-                        } catch (IllegalArgumentException e) {
-                            System.out.println("Ошибка: " + e.getMessage());
-                        }
-                    }
-                    break;
-
-                case "3":
-                    System.out.println("Сколько зарядить?");
-                    // Используем методы родителя (Gun), но вызываем их у объекта machineGun
-                    int toReload = getValidIntInput(scanner);
+                    System.out.print("Сколько зарядить? ");
                     try {
-                        int back = machineGun.reload(toReload);
-                        System.out.println("Заряжено. Вернулось лишних: " + back);
-                    } catch (IllegalArgumentException e) {
+                        int back = gun.reload(getValidIntInput(scanner));
+                        System.out.println("Вернулось: " + back);
+                    } catch (Exception e) {
                         System.out.println("Ошибка: " + e.getMessage());
                     }
                     break;
-
+                case "3":
+                    // Здесь работает упрощенный код: ammo = 0
+                    System.out.println("Разряжено: " + gun.discharge());
+                    break;
                 case "4":
-                    int removed = machineGun.discharge();
-                    System.out.println("Разряжено. Извлечено: " + removed);
+                    System.out.println(gun);
                     break;
-
-                case "5":
-                    System.out.println(machineGun); // Вывод toString
-                    System.out.println("Текущих патронов: " + machineGun.getAmmo());
-                    break;
-
                 case "0":
                     active = false;
                     break;
-
                 default:
                     System.out.println("Неверная команда.");
             }
         }
     }
 
-    // Общий метод ввода целых чисел с проверкой
     public static int getValidIntInput(Scanner scanner) {
         while (true) {
-            System.out.print("Ввод числа: ");
             String line = scanner.nextLine();
             try {
                 return Integer.parseInt(line.trim());
             } catch (NumberFormatException e) {
-                System.out.println("Ошибка! Введено не число. Попробуйте снова.");
+                System.out.print("Ввод числа: ");
             }
         }
     }
